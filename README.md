@@ -1,4 +1,4 @@
-# election
+# Students union election
 This is the final project of Data Bases course I took. The main application is written in python and data base is created and used with SQL/pgSQL.
 
 The task was to write a program to manage student council elections. The db.py pile creates a database and uploads made up data for testing. The app.py file starts the application in the terminal.
