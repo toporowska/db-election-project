@@ -28,22 +28,22 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 #Clearing existing tables and functions
-reader = open("clear.txt","r")
+reader = open("clear.sql","r")
 query = reader.read()
 cursor.execute(query)
 
 #Creating structure
-reader = open("db_structure.txt","r")
+reader = open("db_structure.sql","r")
 query = reader.read()
 cursor.execute(query)
 
 #Implementing functions
-reader = open("functions.txt","r")
+reader = open("functions.pgsql","r")
 query = reader.read()
 cursor.execute(query)
 
 #Adding data
-reader = open("data.txt","r")
+reader = open("data.sql","r")
 query = reader.read()
 cursor.execute(query)
 
