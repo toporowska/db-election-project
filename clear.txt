@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS vote CASCADE;
+DROP TABLE IF EXISTS candidate CASCADE;
+DROP TABLE IF EXISTS voter CASCADE;
+DROP TABLE IF EXISTS election CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP FUNCTION IF EXISTS new_voter(index INT,name VARCHAR,surname VARCHAR);
+DROP FUNCTION IF EXISTS new_election(election_name VARCHAR, num_positions INTEGER, nomination_deadline DATE,begin_date  DATE,end_date  DATE);
+DROP FUNCTION IF EXISTS publish(election VARCHAR);
+DROP FUNCTION IF EXISTS new_candidate(election VARCHAR,index INTEGER);
+DROP FUNCTION IF EXISTS vote(election VARCHAR ,idx_v INTEGER, idx_c INTEGER);
+DROP FUNCTION IF EXISTS results(election VARCHAR);
+DROP FUNCTION IF EXISTS log_in(logn VARCHAR, pass VARCHAR);
+ 
+	
