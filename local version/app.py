@@ -6,7 +6,7 @@ from time import sleep
 ##################### user authentication functions #####################
 def check(log,pas,cursor):
     cursor.callproc('log_in', (log,pas))
-    type = cursor.fetchone()
+    type = cursor.fetchone() 
     type = type[0]
      
     return type 
@@ -350,7 +350,7 @@ def main():
     password = getpass.getpass("Password: ")    
 
     conn = psycopg2.connect(
-    database="postgres", user=user, password=password, host='127.0.0.1', port= '5432'
+    database="election", user=user, password=password, host='127.0.0.1', port= '5432'
     )
     conn.autocommit = True
 
