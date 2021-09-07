@@ -3,7 +3,7 @@ import getpass
 import sshtunnel 
 from time import sleep
 
-
+##################### user authentication functions #####################
 def check(log,pas,cursor):
     cursor.callproc('log_in', (log,pas))
     type = cursor.fetchone()
@@ -29,7 +29,7 @@ def logging_in(cursor):
     return 0, 0
 
 
-
+##################### Commitee action/helper functions #####################
 def add_voter(cursor,name,surname,index):
     
     cursor.callproc('new_voter', (index,name,surname))
@@ -101,7 +101,8 @@ def show_election(cursor,type = "all"):
         
     return election
 
-def inne(cursor):
+# other functions
+def other(cursor):
     ans = input("\n Other options: \n 1. Show voters \n 2. Show elections \n 3. Show candidates \n 4. Show election results \n 5. Previous site \n")
     if ans == '1':
         print("Registered voters: \n")
@@ -136,8 +137,9 @@ def inne(cursor):
         return 0
     else:
         print("I don't understand")
-        inne(cursor)
+        other(cursor)
 
+# to prevent errors from wrong date format
 def fetchdate(mess):
     ans = "y"
     
@@ -167,6 +169,8 @@ def fetchdate(mess):
         
     return "error"
     
+##################### commitee menu function #####################
+
 def commitee(cursor):
 
     ans = 0 
@@ -207,7 +211,7 @@ def commitee(cursor):
             print("\n",publish_results(cursor))
             
         elif ans == "4":
-            inne(cursor)
+            other(cursor)
 
         elif ans != "5":
             print("I don't understand\n")
@@ -218,6 +222,7 @@ def commitee(cursor):
     return 0
 
 
+##################### Voter action/helper functions #####################
 
 def show_candidates(cursor,election):
     cursor.execute('''SELECT name, surname FROM voter WHERE index_number IN (SELECT index_number FROM candidate WHERE election_name = '{}');'''.format(election))
@@ -229,7 +234,7 @@ def show_candidates(cursor,election):
     
     return candidates
     
-def dodaj_kandydata(cursor,name,surname):
+def add_candidate(cursor,name,surname):
 
     index = find_voter(cursor,name,surname)
     if isinstance(index,str):
@@ -303,6 +308,9 @@ def show_results(cursor):
     
     return [str(elem).strip("'()',").replace(',',' ') for elem in odp]
 
+
+##################### voter menu function #################
+
 def voter(cursor,idx):
 
     ans = 0
@@ -314,7 +322,7 @@ def voter(cursor,idx):
             print("\n Please enter candidate data \n")
             name = input("name: ")
             surname = input("surname: ")
-            print(dodaj_kandydata(cursor,name,surname),"\n")
+            print(add_candidate(cursor,name,surname),"\n")
 
         elif ans == "2":
             print("\n",vote(cursor,idx),"\n")
@@ -334,6 +342,7 @@ def voter(cursor,idx):
     return 0
 
 
+##################### main app function ######################
 
 def main():
     sshtunnel.SSH_TIMEOUT = sshtunnel.TUNNEL_TIMEOUT = 5.0
